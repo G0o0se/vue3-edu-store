@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="PlaceOrder" class="row g-3 mb-3">
+  <form @submit.prevent="PlaceOrder();reloadPage()" class="row g-3 mb-3">
     <h5>Billing details</h5>
     <div class="col-md-6">
       <label for="firstName" class="form-label">First Name</label>
@@ -45,10 +45,23 @@ export default {
     phone: "",
   }),
 
+
   methods: {
     PlaceOrder(){
-      console.log({firstName: this.firstName});
-    }
+      console.log({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        city: this.city,
+        address: this.address,
+        email: this.email,
+        phone: this.phone,
+        title: this.$root.cartProducts,
+      });
+    },
+    reloadPage() {
+      window.location.reload()
+    },
+
   }
 }
 </script>

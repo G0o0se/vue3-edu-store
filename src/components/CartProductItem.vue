@@ -1,18 +1,19 @@
 <template>
   <tbody>
-  <tr v-for="prod in $root.cartProducts" v-bind:key="prod.id">
+  <tr v-for="(prod, index) in $root.cartProducts" v-bind:key="prod.id">
     <td>
       <div class="d-flex">
         <img class="img-fluid rounded-1" v-bind:src="prod.image" width="70" alt="">
-        <p class="mx-2 mb-0"> {{ prod.title }} </p>
+          <p class="mx-2 mb-0"> {{ prod.title }} </p>
       </div>
     </td>
     <td class="text-center">
       <div class="btn-group d-flex align-items-center" role="group">
-        <button type="button" class="btn shadow-none">-</button>
-        <span class="mx-2">1</span>
+        <button @click="$root.reduceProd(index)" type="button" class="btn shadow-none">-</button>
+        <span class="mx-2">{{ prod.quantity }}</span>
 
-        <button type="button" class="btn shadow-none">+</button>
+        <button @click="$root.addProd(index)"
+             type="button" class="btn shadow-none">+</button>
       </div>
     </td>
     <td class="text-center py-3">${{ prod.price }}</td>
@@ -34,8 +35,8 @@
     <td class="text-end">
       Total:
     </td>
-    <td class="text-center">{{ $root.cartProducts.length }}</td>
-    <td class="text-end">$0</td>
+    <td class="text-center">{{ $root.totalProduct }}</td>
+    <td class="text-end">$ {{ $root.totalPrice }}</td>
   </tr>
   </tfoot>
 </template>
@@ -61,6 +62,17 @@ export default {
     price: Number,
     isAvailable: Boolean,
     image: String,
+    quantity: {
+      type: Number,
+      default: 1
+    }
   },
+  methods: {
+    PlaceOrder(){
+      console.log({
+        title: this.title,
+      });
+    }
+  }
 }
 </script>

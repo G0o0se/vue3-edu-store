@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="cartModalTitle">
-            Shopping Cart ({{ $root.cartProducts.length }} Items)
+            Shopping Cart ({{ $root.totalProduct }} Items)
           </h5>
           <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>

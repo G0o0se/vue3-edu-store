@@ -33,7 +33,7 @@ export default {
 
   methods: {
     async fetchProducts(){
-      const response = await fetch("http://localhost:3000/products");
+      const response = await fetch("http://localhost:3000/items");
       this.products = await response.json();
     },
   },
