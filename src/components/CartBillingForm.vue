@@ -80,8 +80,12 @@ export default {
       if (FValue.length > 10) this.isFirstNameValid = false;
     },
     lastName(LValue) {
-      this.isLastNameValid = true;
-      if (LValue.length > 10) this.isLastNameValid = false;
+      let regex = /^[А-ЯЁ][а-яё]+$/;
+      if(!regex.test(LValue)){
+        this.isLastNameValid = false;
+      }else{
+        this.isLastNameValid = true;
+      }
     },
     city(CValue) {
       let regex = /^[А-ЯЁ][а-яё]+$/;
