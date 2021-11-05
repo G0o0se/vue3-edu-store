@@ -5,7 +5,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="cartModalTitle">
-            Shopping Cart ({{ $root.totalProduct }} Items)
+            Shopping Cart ({{ ProductCount }} Items)
           </h5>
           <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -23,10 +23,11 @@ import CartProductsList from "./CartProductsList";
 import CartBillingForm from "./CartBillingForm";
 export default {
   name: "CartModal",
-  components: {CartBillingForm, CartProductsList}
+  components: {CartBillingForm, CartProductsList},
+  computed: {
+    ProductCount() {
+      return this.$store.getters.getCartCount;
+    },
+  }
 }
 </script>
-
-<style scoped>
-
-</style>

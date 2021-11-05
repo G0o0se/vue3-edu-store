@@ -23,6 +23,7 @@
 
 <script>
 import Product from "./Product";
+import store from "../store";
 
 export default {
   name: "ProductList",
@@ -30,15 +31,13 @@ export default {
   data: () => ({
     products: [],
   }),
-
-  methods: {
-    async fetchProducts(){
-      const response = await fetch("http://localhost:3000/items");
-      this.products = await response.json();
-    },
-  },
   mounted() {
-    this.fetchProducts();
+    this.$store.dispatch('fetchProducts')
+  },
+  computed: {
+    products () {
+      return this.$store.getters.getProducts;
+    }
   }
 }
 </script>

@@ -18,7 +18,7 @@
           <strong v-else class="text-danger">Out of stock</strong>
         </p>
         <button
-            @click="$root.addToCart({id, title, category, price, isAvailable, image, quantity})"
+            @click="addProductToCart()"
             :disabled="!isAvailable"
             :class="`btn btn-${isAvailable ? 'success' : 'secondary'} w-100 shadow-none`"
         >
@@ -32,7 +32,7 @@
 <script>
 export default {
   name: "Product",
-  props:{
+  props: {
     id: Number,
     title: {
       type: String,
@@ -48,10 +48,19 @@ export default {
       default: 1,
     }
   },
+  methods: {
+    addProductToCart() {
+      this.$store.commit('addProductToCart', {
+        id: this.id,
+        title: this.title,
+        category: this.category,
+        price: this.price,
+        isAvailable: this.isAvailable,
+        image: this.image,
+        quantity: this.quantity,
+      })
+    }
+  }
 };
 
 </script>
-
-<style scoped>
-
-</style>

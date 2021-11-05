@@ -1,25 +1,25 @@
 <template>
   <tbody>
-  <tr v-for="(prod, index) in $root.cartProducts" v-bind:key="prod.id">
+  <tr v-for="(products, index) in getCartProducts" v-bind:key="products.id">
     <td>
       <div class="d-flex">
-        <img class="img-fluid rounded-1" v-bind:src="prod.image" width="70" alt="">
-          <p class="mx-2 mb-0"> {{ prod.title }} </p>
+        <img class="img-fluid rounded-1" v-bind:src="products.image" width="70" alt="">
+          <p class="mx-2 mb-0"> {{ products.title }} </p>
       </div>
     </td>
     <td class="text-center">
       <div class="btn-group d-flex align-items-center" role="group">
-        <button @click="$root.reduceProd(index)" type="button" class="btn shadow-none">-</button>
-        <span class="mx-2">{{ prod.quantity }}</span>
+        <button @click="reduceProd(index)" type="button" class="btn shadow-none">-</button>
+        <span class="mx-2">{{ products.quantity }}</span>
 
-        <button @click="$root.addProd(index)"
+        <button @click="addProd(index)"
              type="button" class="btn shadow-none">+</button>
       </div>
     </td>
-    <td class="text-center py-3">${{ prod.price }}</td>
+    <td class="text-center py-3">${{ products.price }}</td>
     <td>
       <button
-          @click="$root.deleteFromCart()"
+          @click="deleteFromCart"
           class="btn shadow-none">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg"
              viewBox="0 0 16 16">
@@ -35,8 +35,8 @@
     <td class="text-end">
       Total:
     </td>
-    <td class="text-center">{{ $root.totalProduct }}</td>
-    <td class="text-end">$ {{ $root.totalPrice }}</td>
+    <td class="text-center">{{ ProductCount }}</td>
+    <td class="text-end">$ {{ getCartPrice }}</td>
   </tr>
   </tfoot>
 </template>
@@ -48,31 +48,27 @@ import Product from "./Product";
 export default {
   name: "CartProductItem",
   components: {Product},
-  data: () => ({
-    products: [],
-  }),
-  props:{
-    id: Number,
-    title: {
-      type: String,
-      isRequired: true,
-      default: "Product",
+  computed: {
+    getCartProducts () {
+      return this.$store.getters.getCartProducts;
     },
-    category: String,
-    price: Number,
-    isAvailable: Boolean,
-    image: String,
-    quantity: {
-      type: Number,
-      default: 1
-    }
+    ProductCount() {
+      return this.$store.getters.getCartCount;
+    },
+    getCartPrice() {
+        return this.$store.getters.getCartPrice;
+    },
+    deleteFromCart() {
+      return this.$store.getters.deleteFromCart;
+    },
   },
-  methods: {
-    PlaceOrder(){
-      console.log({
-        title: this.title,
-      });
-    }
-  }
+  methods : {
+    addProd(index) {
+      this.$store.commit('addProd', index);
+    },
+    reduceProd(index) {
+      this.$store.commit('reduceProd', index);
+    },
+  },
 }
 </script>
